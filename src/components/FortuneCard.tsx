@@ -41,12 +41,12 @@ export default function FortuneCard() {
       {picked ? (
         <button
           onClick={handleReset}
-          className="rounded-full bg-neutral-900 px-8 py-3 text-base font-semibold text-white shadow-md transition hover:scale-105 hover:bg-neutral-700 active:scale-95 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200"
+          className="rounded-full bg-[#4a2f12] px-8 py-3 text-base font-semibold text-[#f5ead2] shadow-md transition hover:scale-105 hover:bg-[#6b4423] active:scale-95 dark:bg-[#c9a66b] dark:text-[#241407] dark:hover:bg-[#a97c3f]"
         >
           다시 뽑기
         </button>
       ) : (
-        <p className="text-sm text-neutral-500 dark:text-neutral-400">
+        <p className="text-sm text-[#6b4423] dark:text-[#c9a66b]">
           낮과 밤, 마음이 끌리는 카드를 골라보세요
         </p>
       )}

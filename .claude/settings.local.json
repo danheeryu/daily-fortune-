@@ -7,7 +7,17 @@
       "Bash(git ls-remote *)",
       "Bash(gh repo *)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://api.github.com/repos/danheeryu/daily-fortune-)",
-      "Bash(git add *)"
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "Read(//Users/danheeryu/**)",
+      "Bash(ssh -T git@github.com)",
+      "Bash(mkdir -p ~/.ssh)",
+      "Bash(chmod 700 ~/.ssh)",
+      "Bash(ssh-keygen -t ed25519 -C \"kocca20@ctxai.co.kr\" -f ~/.ssh/id_ed25519 -N \"\")",
+      "Bash(ssh -T git@github.com -o StrictHostKeyChecking=accept-new)",
+      "Bash(git checkout *)"
     ]
   }
 }

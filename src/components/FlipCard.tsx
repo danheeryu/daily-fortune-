@@ -11,14 +11,14 @@ const VARIANT_STYLES: Record<
   day: {
     emoji: "☀️",
     label: "낮의 카드",
-    gradient: "from-sky-300 via-amber-200 to-orange-300",
-    textClass: "text-neutral-800",
+    gradient: "from-[#d9b877] via-[#a97c3f] to-[#6b4423]",
+    textClass: "text-[#2b1b0d]",
   },
   night: {
     emoji: "🌙",
     label: "밤의 카드",
-    gradient: "from-indigo-950 via-purple-900 to-slate-900",
-    textClass: "text-white",
+    gradient: "from-[#3b2712] via-[#241407] to-[#120a03]",
+    textClass: "text-[#e8d9b5]",
   },
 };
 
@@ -63,23 +63,23 @@ export default function FlipCard({
           </p>
         </div>
 
-        <div className="backface-hidden flip-card-back absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-2xl bg-white p-6 text-center shadow-xl dark:bg-neutral-900">
+        <div className="backface-hidden flip-card-back absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-2xl bg-[#f5ead2] p-6 text-center shadow-xl dark:bg-[#241407]">
           {result && (
             <>
               <span className="text-4xl">✨</span>
-              <p className="text-base font-medium leading-relaxed text-neutral-800 dark:text-neutral-100">
+              <p className="text-base font-medium leading-relaxed text-[#3b2712] dark:text-[#e8d9b5]">
                 {result.fortune}
               </p>
-              <div className="mt-2 flex flex-col gap-1 text-sm text-neutral-500 dark:text-neutral-400">
+              <div className="mt-2 flex flex-col gap-1 text-sm text-[#8b5e34] dark:text-[#c9a66b]">
                 <p>
                   🍀 행운의 아이템:{" "}
-                  <span className="font-semibold text-neutral-700 dark:text-neutral-200">
+                  <span className="font-semibold text-[#4a2f12] dark:text-[#e8d9b5]">
                     {result.luckyItem}
                   </span>
                 </p>
                 <p>
                   🎨 행운의 색상:{" "}
-                  <span className="font-semibold text-neutral-700 dark:text-neutral-200">
+                  <span className="font-semibold text-[#4a2f12] dark:text-[#e8d9b5]">
                     {result.luckyColor}
                   </span>
                 </p>
