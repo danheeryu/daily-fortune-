@@ -1,7 +1,13 @@
 {
   "permissions": {
     "allow": [
-      "Bash(npx --yes create-next-app@latest . --ts --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm --no-turbopack)"
+      "Bash(npx --yes create-next-app@latest . --ts --tailwind --eslint --app --src-dir --import-alias \"@/*\" --use-npm --no-turbopack)",
+      "Bash(npx tsc *)",
+      "Bash(mkdir -p /Users/danheeryu/vibecoding_practice/.claude && cat /Users/danheeryu/vibecoding_practice/.claude/launch.json 2>/dev/null || echo \"NOT_FOUND\")",
+      "Bash(git ls-remote *)",
+      "Bash(gh repo *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" https://api.github.com/repos/danheeryu/daily-fortune-)",
+      "Bash(git add *)"
     ]
   }
 }
