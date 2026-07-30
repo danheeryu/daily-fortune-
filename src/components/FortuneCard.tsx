@@ -4,14 +4,20 @@ import { useState } from "react";
 import { drawFortune, type FortuneResult } from "@/data/fortunes";
 import FlipCard, { type CardVariant } from "@/components/FlipCard";
 
-export default function FortuneCard() {
+type FortuneCardProps = {
+  onDraw?: (result: FortuneResult) => void;
+};
+
+export default function FortuneCard({ onDraw }: FortuneCardProps) {
   const [picked, setPicked] = useState<CardVariant | null>(null);
   const [result, setResult] = useState<FortuneResult | null>(null);
 
   const handlePick = (variant: CardVariant) => {
     if (picked) return;
-    setResult(drawFortune());
+    const next = drawFortune();
+    setResult(next);
     setPicked(variant);
+    onDraw?.(next);
   };
 
   const handleReset = () => {
