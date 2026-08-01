@@ -47,11 +47,8 @@ export default function FortuneHistory({
                 </td>
               </tr>
             ) : (
-              sorted.map((entry, index) => (
-                <tr
-                  key={`${entry.timestamp}-${index}`}
-                  className="border-t border-[#a97c3f]/20"
-                >
+              sorted.map((entry) => (
+                <tr key={entry.id} className="border-t border-[#a97c3f]/20">
                   <td className="whitespace-nowrap px-4 py-2 align-top text-[#6b4423] dark:text-[#c9a66b]">
                     {formatTime(entry.timestamp)}
                   </td>
