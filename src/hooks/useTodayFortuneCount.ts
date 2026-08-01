@@ -17,17 +17,16 @@ export function useTodayFortuneCount() {
   const refresh = useCallback(async () => {
     const { start, end } = getTodayRange();
 
-    const { count: rowCount, error } = await supabase
-      .from("fortunes")
-      .select("*", { count: "exact", head: true })
-      .gte("date", start.toISOString())
-      .lt("date", end.toISOString());
+    const { data, error } = await supabase.rpc("count_fortunes_between", {
+      start_ts: start.toISOString(),
+      end_ts: end.toISOString(),
+    });
 
     if (error) {
       console.error("Failed to load today's fortune count:", error.message);
       return;
     }
-    setCount(rowCount ?? 0);
+    setCount(data ?? 0);
   }, []);
 
   useEffect(() => {

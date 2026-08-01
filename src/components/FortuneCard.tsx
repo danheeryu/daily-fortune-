@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { drawFortune, type FortuneResult } from "@/data/fortunes";
+import { pickLuckyExtras, type FortuneResult } from "@/data/fortunes";
+import { generateAiFortune } from "@/lib/aiFortune";
 import FlipCard, { type CardVariant } from "@/components/FlipCard";
 
 type FortuneCardProps = {
@@ -11,17 +12,33 @@ type FortuneCardProps = {
 export default function FortuneCard({ onDraw }: FortuneCardProps) {
   const [picked, setPicked] = useState<CardVariant | null>(null);
   const [result, setResult] = useState<FortuneResult | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handlePick = (variant: CardVariant) => {
+  const handlePick = async (variant: CardVariant) => {
     if (picked) return;
-    const next = drawFortune();
-    setResult(next);
     setPicked(variant);
-    onDraw?.(next);
+    setResult(null);
+    setError(null);
+    setLoading(true);
+
+    try {
+      const fortune = await generateAiFortune(variant);
+      const next = { fortune, ...pickLuckyExtras() };
+      setResult(next);
+      onDraw?.(next);
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "알 수 없는 오류가 발생했어요.",
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleReset = () => {
     setPicked(null);
+    setError(null);
     window.setTimeout(() => setResult(null), 300);
   };
 
@@ -33,6 +50,8 @@ export default function FortuneCard({ onDraw }: FortuneCardProps) {
           flipped={picked === "day"}
           disabled={picked !== null && picked !== "day"}
           result={picked === "day" ? result : null}
+          loading={picked === "day" && loading}
+          error={picked === "day" ? error : null}
           onClick={() => handlePick("day")}
         />
         <FlipCard
@@ -40,6 +59,8 @@ export default function FortuneCard({ onDraw }: FortuneCardProps) {
           flipped={picked === "night"}
           disabled={picked !== null && picked !== "night"}
           result={picked === "night" ? result : null}
+          loading={picked === "night" && loading}
+          error={picked === "night" ? error : null}
           onClick={() => handlePick("night")}
         />
       </div>

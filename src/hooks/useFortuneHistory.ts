@@ -9,11 +9,11 @@ export type HistoryEntry = {
   fortune: string;
 };
 
-export function useFortuneHistory(name: string | null) {
+export function useFortuneHistory(userId: string | null, email: string | null) {
   const [history, setHistory] = useState<HistoryEntry[]>([]);
 
   useEffect(() => {
-    if (!name) {
+    if (!userId) {
       setHistory([]);
       return;
     }
@@ -21,7 +21,7 @@ export function useFortuneHistory(name: string | null) {
     supabase
       .from("fortunes")
       .select("id, fortune, date")
-      .eq("name", name)
+      .eq("user_id", userId)
       .order("date", { ascending: false })
       .then(({ data, error }) => {
         if (error) {
@@ -36,15 +36,15 @@ export function useFortuneHistory(name: string | null) {
           })),
         );
       });
-  }, [name]);
+  }, [userId]);
 
   const addEntry = useCallback(
     async (fortune: string) => {
-      if (!name) return;
+      if (!userId) return;
 
       const { data, error } = await supabase
         .from("fortunes")
-        .insert({ name, fortune })
+        .insert({ user_id: userId, name: email, fortune })
         .select("id, fortune, date")
         .single();
 
@@ -62,7 +62,7 @@ export function useFortuneHistory(name: string | null) {
         ...prev,
       ]);
     },
-    [name],
+    [userId, email],
   );
 
   return { history, addEntry };

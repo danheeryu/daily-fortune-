@@ -27,6 +27,8 @@ type FlipCardProps = {
   flipped: boolean;
   disabled: boolean;
   result: FortuneResult | null;
+  loading: boolean;
+  error: string | null;
   onClick: () => void;
 };
 
@@ -35,6 +37,8 @@ export default function FlipCard({
   flipped,
   disabled,
   result,
+  loading,
+  error,
   onClick,
 }: FlipCardProps) {
   const style = VARIANT_STYLES[variant];
@@ -64,7 +68,20 @@ export default function FlipCard({
         </div>
 
         <div className="backface-hidden flip-card-back absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-2xl bg-[#f5ead2] p-6 text-center shadow-xl dark:bg-[#241407]">
-          {result && (
+          {loading && (
+            <>
+              <span className="h-8 w-8 animate-spin rounded-full border-2 border-[#a97c3f] border-t-transparent" />
+              <p className="text-sm text-[#6b4423] dark:text-[#c9a66b]">
+                AI가 운세를 만드는 중...
+              </p>
+            </>
+          )}
+
+          {!loading && error && (
+            <p className="text-sm text-red-700 dark:text-red-400">{error}</p>
+          )}
+
+          {!loading && !error && result && (
             <>
               <span className="text-4xl">✨</span>
               <p className="text-base font-medium leading-relaxed text-[#3b2712] dark:text-[#e8d9b5]">
