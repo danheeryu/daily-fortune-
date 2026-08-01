@@ -1,6 +1,7 @@
 "use client";
 
 import type { FortuneResult } from "@/data/fortunes";
+import FortuneIllustration from "@/components/FortuneIllustration";
 
 export type CardVariant = "day" | "night";
 
@@ -83,7 +84,7 @@ export default function FlipCard({
 
           {!loading && !error && result && (
             <>
-              <span className="text-4xl">✨</span>
+              <FortuneIllustration fortune={result.fortune} />
               <p className="text-base font-medium leading-relaxed text-[#3b2712] dark:text-[#e8d9b5]">
                 {result.fortune}
               </p>

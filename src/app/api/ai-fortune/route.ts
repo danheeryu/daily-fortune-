@@ -1,14 +1,17 @@
 import { NextResponse } from "next/server";
+import { getZodiacInfo } from "@/lib/zodiac";
 
 const OPENROUTER_MODEL = process.env.OPENROUTER_MODEL ?? "openai/gpt-4o-mini";
 
 export async function POST(request: Request) {
-  const { variant } = await request.json();
+  const { variant, birthdate } = await request.json();
 
   const tone =
     variant === "night"
       ? "차분하고 다정한, 하루를 마무리하는 밤의 말투"
       : "밝고 활기찬, 하루를 시작하는 아침의 말투";
+
+  const { chineseZodiac, westernZodiac } = getZodiacInfo(birthdate);
 
   const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
@@ -38,7 +41,7 @@ export async function POST(request: Request) {
             },
             {
               role: "user",
-              content: `${tone}로 오늘의 운세 한 줄을 새로 만들어줘.`,
+              content: `이 사람은 ${chineseZodiac}띠이고 별자리는 ${westernZodiac}야. 이 정보를 참고해서 ${tone}로 오늘의 운세 한 줄을 새로 만들어줘.`,
             },
           ],
           max_tokens: 120,

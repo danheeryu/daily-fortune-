@@ -1,10 +1,11 @@
 export async function generateAiFortune(
   variant: "day" | "night",
+  birthdate: string,
 ): Promise<string> {
   const response = await fetch("/api/ai-fortune", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ variant }),
+    body: JSON.stringify({ variant, birthdate }),
   });
 
   if (!response.ok) {

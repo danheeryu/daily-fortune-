@@ -6,10 +6,11 @@ import { generateAiFortune } from "@/lib/aiFortune";
 import FlipCard, { type CardVariant } from "@/components/FlipCard";
 
 type FortuneCardProps = {
+  birthdate: string;
   onDraw?: (result: FortuneResult) => void;
 };
 
-export default function FortuneCard({ onDraw }: FortuneCardProps) {
+export default function FortuneCard({ birthdate, onDraw }: FortuneCardProps) {
   const [picked, setPicked] = useState<CardVariant | null>(null);
   const [result, setResult] = useState<FortuneResult | null>(null);
   const [loading, setLoading] = useState(false);
@@ -23,7 +24,7 @@ export default function FortuneCard({ onDraw }: FortuneCardProps) {
     setLoading(true);
 
     try {
-      const fortune = await generateAiFortune(variant);
+      const fortune = await generateAiFortune(variant, birthdate);
       const next = { fortune, ...pickLuckyExtras() };
       setResult(next);
       onDraw?.(next);
